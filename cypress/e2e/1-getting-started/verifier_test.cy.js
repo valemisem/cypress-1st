@@ -5,3 +5,4 @@ describe("Testing Verifier website", () => {
     cy.contains('Tasks').should('be.visible')
   });
 });
+
