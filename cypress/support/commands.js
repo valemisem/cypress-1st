@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('enterText', (selector, text) => { 
+    cy.get(selector).type(`${text} {enter}`) 
+
+ })
