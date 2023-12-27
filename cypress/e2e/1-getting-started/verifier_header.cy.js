@@ -1,9 +1,16 @@
+describe("Testing Verifier website", () => {
+  it("Успешная загрузка сайта sqlverifier", () => {
+    cy.visit("/");
+    cy.get("h2").should("be.visible");
+  });
+});
+
 describe("Testing header", () => {
   beforeEach(() => {
-    cy.visit("/login");
-    cy.get('input[name="username"]').type("val_student");
-    cy.get('input[name="password"]').type("12345");
-    cy.get('button[type="submit"]').click();
+    cy.visit("/");
+    const login = "val_student";
+    const password = "12345";
+    cy.login(login, password);
     cy.url().should("include", "/?page=1&sort=id,asc");
   });
 
