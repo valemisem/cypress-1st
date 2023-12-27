@@ -3,10 +3,12 @@ import { LoginPage } from "../../pages/loginPage";
 const loginPageElements = require('../../fixtures/pages/loginPageSelectors.json')
 
 
-describe("santa login - UI", () => {
-  it("user cannot login with old password", () => {
-    let loginPage = new LoginPage // надо создать экземпляр этого класса, чтобы с ним тут работать
+describe("santa login - UI and API", () => {
     let oldPassword = "test1234";
+    let loginPage = new LoginPage // надо создать экземпляр этого класса, чтобы с ним тут работать
+  
+    it("user cannot login with old password, UI", () => {
+    
     let newPassword = faker.internet.password(8);
     cy.log(newPassword);
 
@@ -36,5 +38,47 @@ describe("santa login - UI", () => {
 
     cy.changePassword("Valentina", oldPassword);
   });
+
+  it('user cannot login with old password, API, UI', () => {
+    let newPassword = faker.internet.password(8);
+    cy.log(newPassword);
+    cy.request({
+        method: "PUT",
+        headers: {
+            "Cookie": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjY0ODUxNTksImlhdCI6MTcwMzY0Njc3MCwiZXhwIjoxNzA2MjM4NzcwfQ.KLVZDb7f9IrJpiSxLVJR4ii9ToyccLJctrH0wpBFrzY; refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjY0ODUxNTksImlhdCI6MTcwMzY0Njc3MCwiZXhwIjoxNzA4ODMwNzcwfQ._iPhF5KQw6H5OSGwrXEcU4_NiQCJWfXy614BDgzqOyw"
+        },
+        url: "https://santa-secret.ru/api/account/password",
+        body: {password: newPassword},
+
+    }).then((response) => {
+        expect(response.status).to.eq(200)
+    })
+
+    cy.wait(5000)
+    cy.visit("https://santa-secret.ru")
+    cy.contains("Вход и регистрация").click({ force: true });
+    loginPage.login("valentina.misem@gmail.com", newPassword)
+    cy.contains("Коробки").should("exist");
+    cy.contains('Valentina').click({force: true})
+    cy.get('.form-page__header > .base--clickable > .txt--med').click();
+
+
+    cy.request({
+      method: "PUT",
+      headers: {
+          "Cookie": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjY0ODUxNTksImlhdCI6MTcwMzY0Njc3MCwiZXhwIjoxNzA2MjM4NzcwfQ.KLVZDb7f9IrJpiSxLVJR4ii9ToyccLJctrH0wpBFrzY; refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjY0ODUxNTksImlhdCI6MTcwMzY0Njc3MCwiZXhwIjoxNzA4ODMwNzcwfQ._iPhF5KQw6H5OSGwrXEcU4_NiQCJWfXy614BDgzqOyw"
+      },
+      url: "https://santa-secret.ru/api/account/password",
+      body: {password: oldPassword},
+
+  }).then((response) => {
+      expect(response.status).to.eq(200)
+  })
+  
+  cy.wait(5000)
+  cy.visit("https://santa-secret.ru")
+  cy.contains("Вход и регистрация").click({ force: true });
+  loginPage.login("valentina.misem@gmail.com", oldPassword)
+  })
 });
 
