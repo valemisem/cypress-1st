@@ -1,0 +1,26 @@
+[
+  {
+    "userName": "¡678º24",
+    "email": "test@test.com",
+    "pass": "123456789",
+    "secondPass": "123456789"
+  },
+  {
+    "userName": "testname",
+    "email": "test@test.com",
+    "pass": "123",
+    "secondPass": "123"
+  },
+  {
+    "userName": "testname",
+    "email": "test@test.com",
+    "pass": "123456789",
+    "secondPass": "abcdefg"
+  },
+  {
+    "userName": "testname",
+    "email": "test.com",
+    "pass": "1234",
+    "secondPass": "1234"
+  }
+]

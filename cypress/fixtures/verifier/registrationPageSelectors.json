@@ -1,0 +1,5 @@
+{ "usernameField": "input#username",
+"emailField": "input#email",
+"firstPassField": "input#firstPassword",
+"secondPassField": "input#secondPassword"
+}

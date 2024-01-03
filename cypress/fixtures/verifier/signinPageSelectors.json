@@ -1,0 +1,5 @@
+{ "usernameField": "input#username",
+"passwordField": "input#password",
+"signinButton": "button.btn.btn-primary"
+}
+

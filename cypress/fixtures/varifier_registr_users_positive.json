@@ -1,0 +1,14 @@
+[
+  {
+    "userName": "test_test",
+    "email": "test@test.com",
+    "pass": "123456789",
+    "secondPass": "123456789"
+  },
+  {
+    "userName": "test",
+    "email": "test12345@test.com",
+    "pass": "avbds***",
+    "secondPass": "avbds***"
+  }
+]
