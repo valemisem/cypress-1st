@@ -1,5 +1,6 @@
-{ "usernameField": "input#username",
-"passwordField": "input#password",
-"signinButton": "button.btn.btn-primary"
+{
+  "usernameField": "input#username",
+  "passwordField": "input#password",
+  "signinButton": "button.btn.btn-primary",
+  "logoutButton": "a[href='/logout']"
 }
-
